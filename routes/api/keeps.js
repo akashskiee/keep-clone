@@ -37,11 +37,50 @@ router.post('/', auth, async (req, res) => {
 router.get('/', auth, async (req, res) => {
     try {
         const keeps = await Keep.find().sort({date: -1});
-        res.json(keeps) 
+        res.json(keeps); 
     } catch (err) {
         error(err.message);
         res.status(500).send('Server Error, try again!');
     }
 });
+
+
+//GET API Keep by id
+//Access level private
+
+router.get('/:id', auth, async (req, res) => {
+    try {
+        const keep = await Keep.findById(req.params.id);
+        res.json(keep);
+    } catch (err) {
+        error(err.message);
+        res.status(500).send('Server Error, try again!');
+    }
+});
+
+
+//DELETE API Keep by id
+//Access level private
+
+router.delete('/:id', auth, async(req, res) => {
+    try {
+        const keep = await Keep.findById(req.params.id);
+
+        if(!keep){
+            return res.status(404).json('Keep not found');
+        }
+        if(keep.user.toString() !== req.user.id){
+            return res.status(401).json('Unauthorized!');
+        } 
+        await keep.remove();
+        res.json({msg: 'Deleted!'})
+    } catch (err) {
+        error(err.message);
+        if(err.name == 'CastError'){
+            return res.status(404).json('Keep not found');
+        }
+    }
+});
+
 
 module.exports = router;

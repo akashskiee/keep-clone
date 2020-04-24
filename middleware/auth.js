@@ -16,6 +16,6 @@ module.exports = function(req, res, next) {
         
     } catch (err) {
         console.error(err.message);
-        res.status(500).json({errors: [{mgs: 'Internal Server Error, try again!'}]})
+        res.status(500).json({errors: [{mgs: 'Authorizationed denied!'}]})
     }
 }
