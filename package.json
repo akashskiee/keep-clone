@@ -4,7 +4,10 @@
   "description": "A keeper clone app using mern",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server",
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Akash",
   "license": "ISC",
@@ -16,5 +19,8 @@
     "express-validator": "^6.4.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.10"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0"
   }
 }
