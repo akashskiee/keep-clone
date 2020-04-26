@@ -1,8 +1,12 @@
 import React, {useState, Fragment} from 'react';
+import {Link} from 'react-router-dom';
+import Header from '../layout/Header';
+import {connect} from 'react-redux';
+import {setAlert} from '../../actions/alert';
+import Alert from '@material-ui/lab/Alert';
 import './auth.css';
-import axios from 'axios';
 
-const Register = () => {
+const Register = ({setAlert}) => {
     const [formData, setFormData] = useState({
         name : "",
         email: "",
@@ -17,31 +21,17 @@ const Register = () => {
     const onSubmit = async e => {
         e.preventDefault();
         if(password !== password2){
-            console.log("Passwords donot match")
+            setAlert("Passwords don't match", "error");
         } else {
-            const newUser = {
-                name,
-                email,
-                password
-            }
-            try {
-                const config = {
-                    headers: {
-                        'Content-Type' : 'application/json'
-                    }
-                }
-                const body = JSON.stringify(newUser);
-
-                const res = await axios.post('/api/users', body, config);
-                console.log(res.data);
-            } catch(err) {
-                console.error(err.response.data)
-            }
+            console.log("SUCCESS")
         }
     }
 
     return(
         <Fragment>
+        <Header />
+        <br />
+            <Alert variant="filled" severity="error">This is an error</Alert>
             <div className="login-page">
                 <div className="form">
                     <form className="register-form" onSubmit={e => onSubmit(e)}>
@@ -50,7 +40,7 @@ const Register = () => {
                     <input type="password" name="password" value={password} onChange={e => onChange(e)} placeholder="password" required/>
                     <input type="password" name="password2" value={password2} onChange={e => onChange(e)} placeholder="confirm password" required/>
                     <button>create</button>
-                    <p className="message">Already registered? <a href="#!">Sign In</a></p>
+                    <p className="message">Already registered? <Link to="/login">Sign In</Link></p>
                     </form>
                 </div>
             </div>
@@ -58,4 +48,4 @@ const Register = () => {
     );
 }
 
-export default Register;
+export default connect(null, {setAlert})(Register);

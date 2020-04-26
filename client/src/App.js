@@ -3,9 +3,12 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Homepage from './components/layout/Homepage';
+import {Provider} from 'react-redux';
+import store from './store'
 
 const App = () => {
   return (
+    <Provider store={store}>
     <Router>
     <Fragment>
     <Route exact path='/' component={Homepage} />
@@ -15,6 +18,7 @@ const App = () => {
     </Switch>
     </Fragment>
     </Router>
+    </Provider>
   );
 }
 
