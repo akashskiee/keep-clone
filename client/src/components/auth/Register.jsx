@@ -3,7 +3,8 @@ import {Link} from 'react-router-dom';
 import Header from '../layout/Header';
 import {connect} from 'react-redux';
 import {setAlert} from '../../actions/alert';
-import Alert from '@material-ui/lab/Alert';
+import PropTypes from 'prop-types';
+import Alerting from '../layout/Alerting'
 import './auth.css';
 
 const Register = ({setAlert}) => {
@@ -21,7 +22,7 @@ const Register = ({setAlert}) => {
     const onSubmit = async e => {
         e.preventDefault();
         if(password !== password2){
-            setAlert("Passwords don't match", "error");
+            setAlert("Passwords don't match, Please try again!", "error");
         } else {
             console.log("SUCCESS")
         }
@@ -31,7 +32,7 @@ const Register = ({setAlert}) => {
         <Fragment>
         <Header />
         <br />
-            <Alert variant="filled" severity="error">This is an error</Alert>
+            <Alerting />
             <div className="login-page">
                 <div className="form">
                     <form className="register-form" onSubmit={e => onSubmit(e)}>
@@ -46,6 +47,10 @@ const Register = ({setAlert}) => {
             </div>
         </Fragment>
     );
+}
+
+Register.propTypes = {
+setAlert: PropTypes.func.isRequired
 }
 
 export default connect(null, {setAlert})(Register);
