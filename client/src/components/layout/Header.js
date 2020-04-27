@@ -3,24 +3,31 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {logout} from '../../actions/auth';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const Header = ({auth: {isAuthenticated, loading}, logout}) => {
     const authLinks = (
-        <header>
-                <h1>Keep</h1>
-                <a onClick={logout} href="#!">Logout</a>
-            </header>
+        <ul className="navbar-nav">
+             <li className="nav-item"><a href="#!" className="icon-button"><AccountCircleIcon /></a></li>
+             <li className="nav-item"><a href="#!" onClick={logout} className="icon-button"><ExitToAppIcon /></a></li>
+         </ul>  
+            
     );
 
     const notAuthLinks = (
-        <header>
-                <h1>Keep</h1>
-            </header>
+        <ul className="navbar-nav">
+             <li className="nav-item"><Link to="/login" className="navlink">Login</Link></li>
+             <li className="nav-item"><Link to="/register" className="navlink">Register</Link></li>
+         </ul>  
     );
 
     return(
         <div>
-            {!loading && (<Fragment>{isAuthenticated ? authLinks : notAuthLinks}</Fragment>)}
+        <nav className="navbar">
+        <h1 className="heading">Keeper</h1>
+        {!loading && (<Fragment>{isAuthenticated ? authLinks : notAuthLinks}</Fragment>)}
+        </nav>
         </div>
     )};
 
