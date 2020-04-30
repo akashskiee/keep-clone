@@ -31,7 +31,7 @@ const Login = ({ login, isAuthenticated}) => {
     }
     return(
         <Fragment>
-        <Header />
+        <Header page="Register" />
         <br />
         <Alerting />
             <div className="login-page" onSubmit={e => onSubmit(e)}>

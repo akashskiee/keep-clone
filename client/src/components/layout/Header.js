@@ -6,7 +6,7 @@ import {logout} from '../../actions/auth';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-const Header = ({auth: {isAuthenticated, loading}, logout}) => {
+const Header = ({auth: {isAuthenticated, loading}, logout, page}) => {
     const authLinks = (
         <ul className="navbar-nav">
              <li className="nav-item"><a href="#!" className="icon-button"><AccountCircleIcon /></a></li>
@@ -14,11 +14,11 @@ const Header = ({auth: {isAuthenticated, loading}, logout}) => {
          </ul>  
             
     );
+    const redirectLink = "/" + page.toLowerCase();
 
     const notAuthLinks = (
         <ul className="navbar-nav">
-             <li className="nav-item"><Link to="/login" className="navlink">Login</Link></li>
-             <li className="nav-item"><Link to="/register" className="navlink">Register</Link></li>
+             <li className="nav-item"><Link to={redirectLink} className="navlink">{page}</Link></li>
          </ul>  
     );
 

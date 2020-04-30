@@ -35,7 +35,7 @@ const Register = ({setAlert, register, isAuthenticated}) => {
 
     return(
         <Fragment>
-        <Header />
+        <Header page="Login" />
         <br />
             <Alerting />
             <div className="login-page">
