@@ -63,5 +63,5 @@ async (req, res) => {
         res.status(500).send('Server Error, Please try again!')
     }
 }
-)
+);
 module.exports = router;

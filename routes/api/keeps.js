@@ -50,7 +50,7 @@ router.get('/', auth, async (req, res) => {
 
 router.get('/:id', auth, async (req, res) => {
     try {
-        const keep = await Keep.findById(req.params.id);
+        const keep = await Keep.find({ user: req.params.id});
         res.json(keep);
     } catch (err) {
         error(err.message);
