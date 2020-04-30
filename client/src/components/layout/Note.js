@@ -1,11 +1,11 @@
 import React from "react";
 
 
-const Note = () => {
+const Note = ({keep : {title, content}}) => {
     return (
     <div className="note">
-        <h1>This is a title</h1>
-        <p>this is the content</p>
+        <h1>{title}</h1>
+        <p>{content}</p>
         <button>X</button>
     </div>
     )
