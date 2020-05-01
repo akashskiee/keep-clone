@@ -33,6 +33,12 @@ export const createKeep = (formData) => async dispatch => {
 
 export const getKeeps = userid => async dispatch => {
     try {
+        if(userid == null){
+            dispatch({
+                type: KEEP_ERROR,
+                payload: {msg:"Error"}
+            });
+        }
         const res = await axios.get(`/api/keeps/${userid}`);
         dispatch({
             type: GET_KEEPS,

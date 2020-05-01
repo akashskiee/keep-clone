@@ -10,11 +10,13 @@ import {getKeeps} from '../../actions/keep';
 import Skeleton from '@material-ui/lab/Skeleton';
 
 
-const Homepage = ({getKeeps, keep : {keeps , loading }, auth}) => {
-    useEffect(() => {
-        getKeeps(auth.user._id);
-    }, [getKeeps, auth.user._id]);
+const Homepage = ({getKeeps, keep : {keeps , loading }, auth: {user}}) => {
    
+    useEffect(() => {
+        if(user._id !== null) {
+        getKeeps(user._id);
+        }
+    }, [getKeeps]);
     return(
         <Fragment>
             <Header />

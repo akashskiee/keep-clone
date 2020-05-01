@@ -14,13 +14,17 @@ const Header = ({auth: {isAuthenticated, loading}, logout, page}) => {
          </ul>  
             
     );
+    if(!isAuthenticated) {
     const redirectLink = "/" + page.toLowerCase();
 
-    const notAuthLinks = (
+    var notAuthLinks = (
         <ul className="navbar-nav">
              <li className="nav-item"><Link to={redirectLink} className="navlink">{page}</Link></li>
          </ul>  
     );
+}
+
+    
 
     return(
         <div>
