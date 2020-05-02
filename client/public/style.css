@@ -188,3 +188,10 @@
     padding-right: 20;
     padding-top: 10px;
   }
+
+  .auth-header {
+    font-family: "McLaren", cursive;
+    font-weight: 200;
+    padding-bottom: 60px;
+    padding-left: 28px;
+  }

@@ -7,7 +7,8 @@ import {
     AUTH_ERROR,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
-    LOGOUT
+    LOGOUT,
+    RESET_PASSWORD
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -99,4 +100,11 @@ export const logout = () => dispatch => {
     dispatch({
         type: LOGOUT
     })
+};
+
+export const resetPassword = (email) => dispatch => {
+    //todo restPassword
+    dispatch(setAlert(`Password reset link has been sent to your email id - ${email}`, 'success'));
+
+    setTimeout(() => dispatch({type: RESET_PASSWORD}), 5000)
 }

@@ -1,20 +1,19 @@
 import React, {useState, Fragment} from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import Header from '../layout/Header';
 import {connect} from 'react-redux';
-import {login} from '../../actions/auth';
+import {resetPassword} from '../../actions/auth';
 import PropTypes from 'prop-types';
 import Alerting from '../layout/Alerting'
 import './auth.css';
 
-const Login = ({ login, isAuthenticated}) => {
+const ForgotPassword = ({ resetPassword, isReset}) => {
 
     const [formData, setFormData] = useState({
-        email: "",
-        password: ""
+        email: ""
     });
 
-    const {email, password} = formData;
+    const {email} = formData;
 
     const onChange = e => setFormData({
         ...formData,
@@ -23,26 +22,23 @@ const Login = ({ login, isAuthenticated}) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        login(email, password);
+        resetPassword(email);
     };
 
-    if(isAuthenticated){
-        return <Redirect to='/' />
+    if(isReset){
+        return <Redirect to='/login' />
     }
     return(
         <Fragment>
-        <Header page="Register" />
+        <Header page="Login" />
         <br />
         <Alerting />
             <div className="login-page" onSubmit={e => onSubmit(e)}>
+            <h1 className="auth-header">Reset you password</h1>
                 <div className="form">
                     <form className="login-form">
                     <input type="email" name="email" value={email} onChange={e => onChange(e)} placeholder="email"/>
-                    <input type="password" name="password" value={password} onChange={e => onChange(e)} placeholder="password"/>
-                    <button>login</button>
-                    <p className="message">Not registered? <Link to="/register">Create an account</Link></p>
-                    <p className=""> </p>
-                    <Link to="/forgot-password"><a className="message">Forgot your password?</a></Link>
+                    <button>Reset your password</button>
                     </form>
                 </div>
                 </div>
@@ -50,13 +46,13 @@ const Login = ({ login, isAuthenticated}) => {
     );
 }
 
-Login.propTypes = {
-    login: PropTypes.func.isRequired,
+ForgotPassword.propTypes = {
+    resetPassword: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool
     }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+    isReset: state.auth.isReset
 });
 
-export default connect(mapStateToProps, {login})(Login);
+export default connect(mapStateToProps, {resetPassword})(ForgotPassword);
