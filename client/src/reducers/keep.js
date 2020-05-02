@@ -12,11 +12,16 @@ export default function(state = initialState, action) {
     const {type, payload} = action;
 
     switch(type){
-        case ADD_KEEP:
         case GET_KEEPS:
             return{
                 ...state,
                 keeps: payload,
+                loading: false,
+                error: {}
+            };
+        case ADD_KEEP:
+            return{
+                keeps: [payload, ...state.keeps],
                 loading: false,
                 error: {}
             };

@@ -22,7 +22,7 @@ const InputArea = ({createKeep, history}) => {
   
 const onSubmit = (e) => {
   e.preventDefault();
-  createKeep(formData);
+  createKeep(formData, history);
 }
 
 const [isExpanded, setExpand] = useState(false);

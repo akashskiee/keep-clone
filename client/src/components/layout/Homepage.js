@@ -16,7 +16,7 @@ const Homepage = ({getKeeps, keep : {keeps , loading }, auth: {user}}) => {
         if(user && user._id) {
         getKeeps(user._id);
         }
-    }, [getKeeps]);
+    }, [getKeeps, user]);
     return(
         <Fragment>
             <Header />
@@ -33,7 +33,6 @@ const Homepage = ({getKeeps, keep : {keeps , loading }, auth: {user}}) => {
                <Note key={keep._id} keep={keep} />
                 )))}
             </Fragment>)}
-            <Footer />
         </Fragment>
     );
 }
