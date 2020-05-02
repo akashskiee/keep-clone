@@ -3,7 +3,7 @@ import {ADD_KEEP, GET_KEEPS, KEEP_ERROR} from '../actions/types';
 
 const initialState = {
     keeps : [],
-    keep: null,
+    keep: [],
     loading : true,
     error: {}
 };
@@ -17,13 +17,15 @@ export default function(state = initialState, action) {
             return{
                 ...state,
                 keeps: payload,
-                loading: false
+                loading: false,
+                error: {}
             };
         case KEEP_ERROR:
             return{
                 ...state,
                 error: payload,
-                loading: false
+                loading: false,
+                keeps: []
             }
         default:
             return state;

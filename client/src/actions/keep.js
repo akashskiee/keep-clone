@@ -4,7 +4,7 @@ import {setAlert} from './alert';
 
 
 //POST KEEPS
-export const createKeep = (formData) => async dispatch => {
+export const createKeep = (formData, history) => async dispatch => {
     try {
         const config = {
             headers : {
@@ -12,10 +12,11 @@ export const createKeep = (formData) => async dispatch => {
             }
         };
         const res = await axios.post('/api/keeps', formData, config);
-        dispatch({
+        return dispatch({
             type: ADD_KEEP,
             payload: res.data
         });
+        history.push('/');
     } catch (err) {
         const errors = err.response.data.errors;
 
@@ -40,11 +41,12 @@ export const getKeeps = userid => async dispatch => {
             });
         }
         const res = await axios.get(`/api/keeps/${userid}`);
-        dispatch({
+        return dispatch({
             type: GET_KEEPS,
             payload: res.data
         });
     } catch (err) {
+        console.log(err)
         const errors = err.response.data.errors;
 
         if(errors) {

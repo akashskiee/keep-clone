@@ -13,7 +13,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 const Homepage = ({getKeeps, keep : {keeps , loading }, auth: {user}}) => {
    
     useEffect(() => {
-        if(user._id !== null) {
+        if(user && user._id) {
         getKeeps(user._id);
         }
     }, [getKeeps]);

@@ -7,7 +7,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Zoom from "@material-ui/core/Zoom";
 import Collapse from "@material-ui/core/Collapse";
 
-const InputArea = ({createKeep}) => {
+const InputArea = ({createKeep, history}) => {
   const [formData, setFormData] = useState({
     title: '',
     content: ''
