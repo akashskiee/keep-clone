@@ -7,7 +7,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Zoom from "@material-ui/core/Zoom";
 import Collapse from "@material-ui/core/Collapse";
 
-const InputArea = ({createKeep, history}) => {
+const InputArea = ({createKeep}) => {
   const [formData, setFormData] = useState({
     title: '',
     content: ''
@@ -22,7 +22,7 @@ const InputArea = ({createKeep, history}) => {
   
 const onSubmit = (e) => {
   e.preventDefault();
-  createKeep(formData, history);
+  createKeep(formData);
 }
 
 const [isExpanded, setExpand] = useState(false);

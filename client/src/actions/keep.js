@@ -1,10 +1,10 @@
 import axios from 'axios';
-import {ADD_KEEP, GET_KEEPS, KEEP_ERROR} from './types';
+import {ADD_KEEP, GET_KEEPS, KEEP_ERROR, DELETE_KEEP} from './types';
 import {setAlert} from './alert';
 
 
 //POST KEEPS
-export const createKeep = (formData, history) => async dispatch => {
+export const createKeep = (formData) => async dispatch => {
     try {
         const config = {
             headers : {
@@ -16,7 +16,6 @@ export const createKeep = (formData, history) => async dispatch => {
             type: ADD_KEEP,
             payload: res.data
         });
-        history.push('/');
     } catch (err) {
         const errors = err.response.data.errors;
 
@@ -34,19 +33,12 @@ export const createKeep = (formData, history) => async dispatch => {
 
 export const getKeeps = userid => async dispatch => {
     try {
-        if(userid == null){
-            dispatch({
-                type: KEEP_ERROR,
-                payload: {msg:"Error"}
-            });
-        }
         const res = await axios.get(`/api/keeps/${userid}`);
         return dispatch({
             type: GET_KEEPS,
             payload: res.data
         });
     } catch (err) {
-        console.log(err)
         const errors = err.response.data.errors;
 
         if(errors) {
@@ -57,4 +49,28 @@ export const getKeeps = userid => async dispatch => {
             payload: {msg: err.response, status: err.status}
         });
     }
+};
+
+//Delete keep
+
+export const deleteKeep = (id) => async dispatch => {
+    if(window.confirm('Are you sure you want to delete the keep?')){
+    try {
+        await axios.delete(`/api/keeps/${id}`);
+        dispatch({
+            type: DELETE_KEEP,
+            payload: id
+        });
+    } catch (err) {
+        const errors = err.response;
+
+        if(errors) {
+            errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+        }
+        dispatch({
+            type: KEEP_ERROR,
+            payload: {msg: err.response, status: err.status}
+        });
+    }
 }
+};

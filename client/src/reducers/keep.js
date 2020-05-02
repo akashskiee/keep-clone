@@ -1,4 +1,4 @@
-import {ADD_KEEP, GET_KEEPS, KEEP_ERROR} from '../actions/types';
+import {ADD_KEEP, GET_KEEPS, KEEP_ERROR, DELETE_KEEP} from '../actions/types';
 
 
 const initialState = {
@@ -21,6 +21,7 @@ export default function(state = initialState, action) {
             };
         case ADD_KEEP:
             return{
+                ...state,
                 keeps: [payload, ...state.keeps],
                 loading: false,
                 error: {}
@@ -31,6 +32,12 @@ export default function(state = initialState, action) {
                 error: payload,
                 loading: false,
                 keeps: []
+            }
+        case DELETE_KEEP:
+            return {
+                ...state,
+                keeps: state.keeps.filter(keep => keep._id !== payload),
+                loading: false
             }
         default:
             return state;

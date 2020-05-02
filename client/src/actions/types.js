@@ -10,3 +10,4 @@ export const LOGOUT = 'LOGOUT';
 export const ADD_KEEP = 'ADD_KEEP';
 export const KEEP_ERROR = 'KEEP_ERROR';
 export const GET_KEEPS = 'GET_KEEPS';
+export const DELETE_KEEP = 'DELETE_KEEP';
