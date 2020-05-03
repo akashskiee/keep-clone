@@ -6,6 +6,7 @@ const {check, validationResult} = require('express-validator');
 require('dotenv').config();
 const User = require('../../models/User');
 const auth = require('../../middleware/auth');
+const {transporter, getPasswordResetURL, resetPasswordTemplate} = require('../../config/email');
 
 //GET API AUTH
 
@@ -64,4 +65,39 @@ async (req, res) => {
     }
 }
 );
+
+
+//POST API Auth Forgot Password - users
+
+router.post('/forgot', async (req, res) => {
+    try {
+        const {email} = req.body
+        if(!email) return res.status(400).json({errors : [{msg: 'Enter your email'}] });
+        const oldUser = await User.findOne({email});
+        const {_id, password, date} = oldUser
+        const passwordhashtoken = password + date;
+        
+        const token = jwt.sign({_id}, passwordhashtoken, {expiresIn: 3600})
+        
+        const url = getPasswordResetURL(oldUser, token)
+        const emailTemplate = resetPasswordTemplate(oldUser, url)
+
+        const sendEmail = () => {
+            transporter.sendMail(emailTemplate, (err, info) => {
+                if(err){
+                    res.status(500).json({errors: [{msg: 'Ohhoo! Something failed at our end, please try again after sometime'}] });
+                } 
+                res.json("Email sent");
+
+            })
+        }
+        await sendEmail();
+
+      
+    } catch (err) {
+        console.error(err.message);
+        res.send(500).send('Server Error, Please try again!');
+    }
+})
+
 module.exports = router;
