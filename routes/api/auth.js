@@ -91,7 +91,7 @@ router.post('/forgot', async (req, res) => {
 
             })
         }
-        await sendEmail();
+        sendEmail();
 
       
     } catch (err) {
@@ -99,5 +99,32 @@ router.post('/forgot', async (req, res) => {
         res.send(500).send('Server Error, Please try again!');
     }
 })
+
+//POST API Auth reset password - users - id and password hash sent in mail
+
+router.post('/reset/:id/:token', async (req, res) => {
+    try {
+        const {id, token} = req.params;
+        const {newPassword} = req.body;
+        const user = await User.findOne({_id: id})
+        if(!user) return res.status(401).json({errors : [{msg: 'Unauthorized'}] });
+        const {_id, password, date} = user;
+        const passwordhashtoken = password + date;
+        const payload = jwt.decode(token, passwordhashtoken)
+        if(payload._id != _id) return res.status(401).json({errors : [{msg: 'Its Unauthorized'}] });
+
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(newPassword, salt);
+        await user.save((err, doc) => {
+            if(err) return console.log(err);
+            res.json('Password reset successful');
+        });
+
+    } catch (err) {
+        console.error(err.message);
+        res.send(500).send('Server Error, Please try again!');
+    }
+})
+
 
 module.exports = router;
