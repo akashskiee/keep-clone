@@ -14,5 +14,6 @@ app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/keeps', require('./routes/api/keeps'));
 
+app.use(express.static(__dirname + 'client/public/'));
 
 app.listen(port, () => console.log(`Server started at ${port}`));

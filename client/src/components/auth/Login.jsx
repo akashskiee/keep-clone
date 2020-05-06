@@ -42,7 +42,7 @@ const Login = ({ login, isAuthenticated}) => {
                     <button>login</button>
                     <p className="message">Not registered? <Link to="/register">Create an account</Link></p>
                     <p className=""> </p>
-                    <Link to="/forgot-password"><a className="message">Forgot your password?</a></Link>
+                    <Link to="/forgot-password"><p className="message">Forgot your password?</p></Link>
                     </form>
                 </div>
                 </div>

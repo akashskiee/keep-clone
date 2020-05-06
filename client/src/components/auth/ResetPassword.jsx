@@ -7,13 +7,14 @@ import PropTypes from 'prop-types';
 import Alerting from '../layout/Alerting'
 import './auth.css';
 
-const ForgotPassword = ({ resetPassword, isReset}) => {
+const ResetPassword = ({ resetPassword, isReset}) => {
 
     const [formData, setFormData] = useState({
-        email: ""
+        newPassword: "",
+        password2: ''
     });
 
-    const {email} = formData;
+    const {newPassword, password2} = formData;
 
     const onChange = e => setFormData({
         ...formData,
@@ -22,7 +23,7 @@ const ForgotPassword = ({ resetPassword, isReset}) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        resetPassword(email);
+        resetPassword(newPassword);
     };
 
     if(isReset){
@@ -33,11 +34,12 @@ const ForgotPassword = ({ resetPassword, isReset}) => {
         <Header page="Login" />
         <br />
         <Alerting />
-            <div className="login-page" >
+            <div className="login-page" onSubmit={e => onSubmit(e)}>
             <h1 className="auth-header">Reset you password</h1>
                 <div className="form">
-                    <form className="login-form" onSubmit={e => onSubmit(e)}>
-                    <input type="email" name="email" value={email} onChange={e => onChange(e)} placeholder="email"/>
+                    <form className="login-form">
+                    <input type="password" name="newPassword" value={newPassword} onChange={e => onChange(e)} placeholder="New password"/>
+                     <input type="password" name="password2" value={password2} onChange={e => onChange(e)} placeholder="Retype password"/>
                     <button>Reset your password</button>
                     </form>
                 </div>
@@ -46,12 +48,13 @@ const ForgotPassword = ({ resetPassword, isReset}) => {
     );
 }
 
-ForgotPassword.propTypes = {
-    resetPassword: PropTypes.func.isRequired
+ResetPassword.propTypes = {
+    resetPassword: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool
     }
 
 const mapStateToProps = state => ({
     isReset: state.auth.isReset
 });
 
-export default connect(mapStateToProps, {resetPassword})(ForgotPassword);
+export default connect(mapStateToProps, {resetPassword})(ResetPassword);

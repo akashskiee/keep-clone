@@ -102,9 +102,28 @@ export const logout = () => dispatch => {
     })
 };
 
-export const resetPassword = (email) => dispatch => {
+export const resetPassword = (email) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type' : 'application/json'
+        }
+    };
     //todo restPassword
-    dispatch(setAlert(`Password reset link has been sent to your email id - ${email}`, 'success'));
+    const body = JSON.stringify({email});
+    try {
+        const res = await axios.post('/api/auth/forgot-password', body, config);
+        dispatch({
+            type: RESET_PASSWORD,
+            payload: res.data
+        });
+        dispatch(setAlert(`Password reset link has been sent to your email id - ${email}`, 'success'));
 
-    setTimeout(() => dispatch({type: RESET_PASSWORD}), 5000)
+        setTimeout(() => dispatch({type: RESET_PASSWORD}), 5000)
+    } catch (err) {
+        const errors = err.response.data.errors;
+        if(errors){
+            errors.forEach(error => dispatch(setAlert(error.msg, 'error')));
+        }
+    }
+   
 }

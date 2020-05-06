@@ -69,11 +69,12 @@ async (req, res) => {
 
 //POST API Auth Forgot Password - users
 
-router.post('/forgot', async (req, res) => {
+router.post('/forgot-password', async (req, res) => {
     try {
         const {email} = req.body
         if(!email) return res.status(400).json({errors : [{msg: 'Enter your email'}] });
         const oldUser = await User.findOne({email});
+        if(!oldUser)  return res.status(404).json({errors: [{msg: 'User not available, Please enter valid email!'}]});
         const {_id, password, date} = oldUser
         const passwordhashtoken = password + date;
         
@@ -88,12 +89,9 @@ router.post('/forgot', async (req, res) => {
                     res.status(500).json({errors: [{msg: 'Ohhoo! Something failed at our end, please try again after sometime'}] });
                 } 
                 res.json("Email sent");
-
             })
         }
         sendEmail();
-
-      
     } catch (err) {
         console.error(err.message);
         res.send(500).send('Server Error, Please try again!');

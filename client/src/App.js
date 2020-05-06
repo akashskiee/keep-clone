@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import ForgotPassword from './components/auth/ForgotPassword';
+import ResetPassword from './components/auth/ResetPassword';
 import Homepage from './components/layout/Homepage';
 import PrivateRoute from './components/routing/PrivateRoute';
 import {Provider} from 'react-redux';
@@ -26,6 +27,7 @@ const App = () => {
     <Route exact path='/register' component={Register} />
     <Route exact path='/login' component={Login}/>
     <Route exact path='/forgot-password' component={ForgotPassword}/>
+    <Route path='/reset/:id/:token' component={ResetPassword}/>
     <PrivateRoute exact path='/' component={Homepage} />
     </Switch>
     </Fragment>
