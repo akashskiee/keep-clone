@@ -2,12 +2,12 @@ import React, {useState, Fragment} from 'react';
 import {Redirect} from 'react-router-dom';
 import Header from '../layout/Header';
 import {connect} from 'react-redux';
-import {resetPassword} from '../../actions/auth';
+import {forgotPassword} from '../../actions/auth';
 import PropTypes from 'prop-types';
 import Alerting from '../layout/Alerting'
 import './auth.css';
 
-const ForgotPassword = ({ resetPassword, isReset}) => {
+const ForgotPassword = ({ forgotPassword, isReset}) => {
 
     const [formData, setFormData] = useState({
         email: ""
@@ -22,7 +22,7 @@ const ForgotPassword = ({ resetPassword, isReset}) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        resetPassword(email);
+        forgotPassword(email);
     };
 
     if(isReset){
@@ -47,11 +47,11 @@ const ForgotPassword = ({ resetPassword, isReset}) => {
 }
 
 ForgotPassword.propTypes = {
-    resetPassword: PropTypes.func.isRequired
+    forgotPassword: PropTypes.func.isRequired
     }
 
 const mapStateToProps = state => ({
     isReset: state.auth.isReset
 });
 
-export default connect(mapStateToProps, {resetPassword})(ForgotPassword);
+export default connect(mapStateToProps, {forgotPassword})(ForgotPassword);

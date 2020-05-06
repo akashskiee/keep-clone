@@ -3,11 +3,12 @@ import {Redirect} from 'react-router-dom';
 import Header from '../layout/Header';
 import {connect} from 'react-redux';
 import {resetPassword} from '../../actions/auth';
+import {setAlert} from '../../actions/alert';
 import PropTypes from 'prop-types';
 import Alerting from '../layout/Alerting'
 import './auth.css';
 
-const ResetPassword = ({ resetPassword, isReset}) => {
+const ResetPassword = ({setAlert, resetPassword, isReset, match : {params : { id, token} }}) => {
 
     const [formData, setFormData] = useState({
         newPassword: "",
@@ -23,12 +24,13 @@ const ResetPassword = ({ resetPassword, isReset}) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        resetPassword(newPassword);
+        if(newPassword !== password2){
+            setAlert("Passwords don't match, Please try again!", "error");
+        } else {
+        resetPassword(newPassword, id, token);
+        }
     };
 
-    if(isReset){
-        return <Redirect to='/login' />
-    }
     return(
         <Fragment>
         <Header page="Login" />
@@ -50,6 +52,7 @@ const ResetPassword = ({ resetPassword, isReset}) => {
 
 ResetPassword.propTypes = {
     resetPassword: PropTypes.func.isRequired,
+    setAlert: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool
     }
 
@@ -57,4 +60,4 @@ const mapStateToProps = state => ({
     isReset: state.auth.isReset
 });
 
-export default connect(mapStateToProps, {resetPassword})(ResetPassword);
+export default connect(mapStateToProps, {setAlert, resetPassword})(ResetPassword);
