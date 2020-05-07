@@ -89,6 +89,7 @@ router.post('/forgot-password', async (req, res) => {
                     res.status(500).json({errors: [{msg: 'Ohhoo! Something failed at our end, please try again after sometime'}] });
                 } 
                 res.json("Email sent");
+                return
             })
         }
         sendEmail();
