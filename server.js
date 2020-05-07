@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const port = 5000 || process.env.PORT;
 const connectDB = require('./config/db');
 const path = require('path')
 
@@ -22,4 +21,4 @@ if(process.env.NODE_ENV === 'production'){
     })
 }
 
-app.listen(port, () => console.log(`Server started at ${port}`));
+app.listen(process.env.PORT, () => console.log(`Server started`));
