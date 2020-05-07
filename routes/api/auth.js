@@ -88,14 +88,13 @@ router.post('/forgot-password', async (req, res) => {
                 if(err){
                     res.status(500).json({errors: [{msg: 'Ohhoo! Something failed at our end, please try again after sometime'}] });
                 } 
-                res.json("Email sent");
-                return
+                return res.json("Email sent");
             })
         }
         sendEmail();
     } catch (err) {
         console.error(err.message);
-        res.send(500).send('Server Error, Please try again!');
+        res.status(500).send('Server Error, Please try again!');
     }
 })
 
@@ -121,7 +120,7 @@ router.post('/reset/:id/:token', async (req, res) => {
 
     } catch (err) {
         console.error(err.message);
-        res.send(500).send('Server Error, Please try again!');
+        res.status(500).send('Server Error, Please try again!');
     }
 })
 
