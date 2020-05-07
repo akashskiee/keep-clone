@@ -40,7 +40,7 @@
     border-radius: 7px;
     box-shadow: 0 2px 5px #ccc;
     padding: 10px;
-    width: 240px;
+    width: 260px;
     margin: 16px;
     float: left;
   }
@@ -67,6 +67,7 @@
     float: right;
     margin-right: 10px;
     color: #f5ba13;
+    background-color: #fff;
     border: none;
     width: 36px;
     height: 36px;
@@ -189,9 +190,12 @@
     padding-top: 10px;
   }
 
-  .auth-header {
-    font-family: "McLaren", cursive;
-    font-weight: 200;
-    padding-bottom: 60px;
-    padding-left: 28px;
+  .keep-container {
+    margin-left: 10px;
+    display: grid;
+    gap:  20px;
+    grid-template-columns:repeat(4, 1fr);
+    grid-template-columns:repeat(4, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
   }
