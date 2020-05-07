@@ -22,6 +22,7 @@ const Homepage = ({getKeeps, keep : {keeps , loading }, auth: {user}}) => {
             <Header />
             <Alerting />
             <InputArea />
+            <div className="keep-container">
             {loading ? (
                 <Fragment>
                 <Skeleton className="note-skeleton" varient="rect" width={240} height={118} animation="wave" />
@@ -33,6 +34,7 @@ const Homepage = ({getKeeps, keep : {keeps , loading }, auth: {user}}) => {
                <Note key={keep._id} keep={keep} />
                 )))}
             </Fragment>)}
+            </div>
         </Fragment>
     );
 }
@@ -45,7 +47,7 @@ auth: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    keep : state.keep,
+    keep: state.keep,
     auth: state.auth
 });
 

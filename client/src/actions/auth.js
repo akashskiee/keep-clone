@@ -7,7 +7,8 @@ import {
     AUTH_ERROR,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
-    LOGOUT
+    LOGOUT,
+    RESET_PASSWORD
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -99,4 +100,56 @@ export const logout = () => dispatch => {
     dispatch({
         type: LOGOUT
     })
+};
+
+//Send forgot password email
+
+export const forgotPassword = (email) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type' : 'application/json'
+        }
+    };
+    const body = JSON.stringify({email});
+    try {
+        const res = await axios.post('/api/auth/forgot-password', body, config);
+        dispatch({
+            type: RESET_PASSWORD,
+            payload: res.data
+        });
+        dispatch(setAlert(`Password reset link has been sent to your email id - ${email}`, 'success'));
+
+        setTimeout(() => dispatch({type: RESET_PASSWORD}), 5000)
+    } catch (err) {
+        const errors = err.response.data.errors;
+        if(errors){
+            errors.forEach(error => dispatch(setAlert(error.msg, 'error')));
+        }
+    }
+   
+}
+
+//reset password
+
+export const resetPassword = (newPassword, id, token) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type' : 'application/json'
+        }
+    };
+    const body = JSON.stringify({newPassword});
+    try {
+        const res = await axios.post(`/api/auth/reset/${id}/${token}`, body, config);
+        dispatch({
+            type: RESET_PASSWORD,
+            payload: res.data
+        });
+        dispatch(setAlert(`Password successfully changed`, 'success'));
+    } catch (err) {
+        const errors = err.response.data.errors;
+        if(errors){
+            errors.forEach(error => dispatch(setAlert(error.msg, 'error')));
+        }
+    }
+   
 }

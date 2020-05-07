@@ -5,7 +5,8 @@ import {
     AUTH_ERROR,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
-    LOGOUT
+    LOGOUT,
+    RESET_PASSWORD
 } from '../actions/types';
 
 
@@ -13,7 +14,8 @@ const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
     loading: true,
-    user: null
+    user: null,
+    isReset: false
 }
 
 
@@ -48,6 +50,15 @@ export default function(state = initialState, action) {
                 loading: false,
                 user: null
             };
+        case RESET_PASSWORD:
+            return {
+                ...state,
+                token: null,
+                isAuthenticated: false,
+                loading: false,
+                user: null,
+                isReset: true
+            }
         default:
             return state;
     }
