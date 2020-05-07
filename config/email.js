@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
     }
 })
 
- const getPasswordResetURL = (user, token) => `https://afternoon-everglades-28958.herokuapp.com/${user._id}/${token}`;
+ const getPasswordResetURL = (user, token) => `https://afternoon-everglades-28958.herokuapp.com/reset/${user._id}/${token}`;
  
  const resetPasswordTemplate = (user, url) => {
     const from = process.env.EMAIL_LOGIN;
