@@ -86,7 +86,7 @@ router.post('/forgot-password', async (req, res) => {
         const sendEmail = () => {
             transporter.sendMail(emailTemplate, (err, info) => {
                 if(err){
-                    res.status(500).json({errors: [{msg: 'Ohhoo! Something failed at our end, please try again after sometime'}] });
+                  return  res.status(500).json({errors: [{msg: 'Ohhoo! Something failed at our end, please try again after sometime'}] });
                 } 
                 res.json("Email sent");
             })
@@ -94,7 +94,7 @@ router.post('/forgot-password', async (req, res) => {
         sendEmail();
     } catch (err) {
         console.error(err.message);
-        res.send(500).send('Server Error, Please try again!');
+        res.status(500).send('Server Error, Please try again!');
     }
 })
 
