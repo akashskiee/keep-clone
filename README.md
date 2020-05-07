@@ -44,3 +44,10 @@ Akash P Kumar
 
 ## Version
 1.0.0
+
+## Todo
+- [ ] Profile Page
+- [ ] Upload Avatar
+- [ ] Edit Keep
+- [ ] Share Keep
+- [ ] Mobile Responsive
