@@ -2,6 +2,9 @@
   "name": "keeper",
   "version": "1.0.0",
   "description": "A keeper clone app using mern",
+  "engines": {
+    "node": "12.16.1"
+    },
   "main": "server.js",
   "scripts": {
     "start": "node server",
