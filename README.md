@@ -35,6 +35,13 @@ npm install
 ```javascript
 npm run dev
 ```
+---
+
+# Screenshots
+
+![Home page](https://github.com/akashpk97/keep-mern/blob/master/client/public/images/home.JPG)
+
+![Home-edit page](https://github.com/akashpk97/keep-mern/blob/master/client/public/images/home-edit.JPG)
 
 ---
 
