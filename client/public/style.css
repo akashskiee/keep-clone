@@ -191,8 +191,7 @@
   }
 
   .keep-container {
-    margin-left: 10px;
-    display: grid;
+    margin-left: 60px;
     gap:  20px;
     grid-template-columns:repeat(4, 1fr);
     grid-template-columns:repeat(4, minmax(260px, 1fr));
