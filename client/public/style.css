@@ -198,3 +198,9 @@
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 
   }
+
+  .alert {
+    width: 70%;
+    padding-bottom: 10px;
+    padding-left: 15%;
+  }
