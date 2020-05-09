@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {login} from '../../actions/auth';
 import PropTypes from 'prop-types';
 import Alerting from '../layout/Alerting';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import './auth.css';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -54,7 +53,7 @@ const Login = ({ login, loading, isAuthenticated}) => {
                     <form className="login-form">
                     <input type="email" name="email" value={email} onChange={e => onChange(e)} placeholder="email"/>
                     <input type="password" name="password" value={password} onChange={e => onChange(e)} placeholder="password"/>
-                    <button>login</button>{loading && <CircularProgress className={classes.buttonProgress} size={24}/>}
+                    <button>login</button>
                     <p className="message">Not registered? <Link to="/register">Create an account</Link></p>
                     <p className=""> </p>
                     <Link to="/forgot-password"><p className="message">Forgot your password?</p></Link>
